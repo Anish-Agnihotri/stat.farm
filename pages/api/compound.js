@@ -34,7 +34,7 @@ export default (req, res) => {
                 "total_volume": total_volume,
                 "tickers": cleaned,
                 "addresses": compaddr.data.accounts,
-                "proposals": gov.data
+                "proposals": gov.data.proposals
               }
               
               res.send(response);

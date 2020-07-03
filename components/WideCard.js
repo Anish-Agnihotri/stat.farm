@@ -1,4 +1,4 @@
-export default function WideCard(props, { children }) {
+export default function WideCard(props) {
     return(
         <>
             <div className="widecard">
@@ -6,7 +6,7 @@ export default function WideCard(props, { children }) {
                     <span>{props.name}</span>
                 </div>
                 <div>
-                    {children}
+                    {props.children}
                 </div>
             </div>
             <style jsx>{`

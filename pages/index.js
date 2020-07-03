@@ -6,6 +6,7 @@ import MidCard from '../components/MidCard'
 import XWideCard from '../components/XWideCard'
 import TickerItem from '../components/TickerItem'
 import AddressItem from '../components/AddressItem'
+import GovernanceItem from '../components/GovernanceItem'
 import useSWR from 'swr'
 import fetch from 'unfetch'
 
@@ -58,7 +59,11 @@ export default function Compound() {
               return <AddressItem key={i} price={data.current_price} address={address} />
             })}
           </MidCard>
-          <WideCard name="Governance Proposals"/>
+          <WideCard name="Governance Proposals">
+            {data.proposals.map((proposal, i) => {
+              return <GovernanceItem key={i} proposal={proposal} />
+            })}
+          </WideCard>
         </div>
       </Layout>
       <style jsx>{`
