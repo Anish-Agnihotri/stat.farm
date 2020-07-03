@@ -38,7 +38,7 @@ export default function Compound() {
           <SmallCard name="24H Volume (Cleaned)" content={"$" + data.total_volume.toLocaleString()}/>
         </div>
         <div>
-          <WideCard name="Token Mining Profitability"/>
+          <WideCard name="COMP/USD"/>
           <MidCard name="COMP Market Volumes">
             {data.tickers.map((ticker, i) => {
               return <TickerItem key={i} ticker={ticker} />
