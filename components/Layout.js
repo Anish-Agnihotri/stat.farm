@@ -13,17 +13,19 @@ export default function Layout({ children }) {
                 <link rel="preload" href="/fonts/OpenSans-Bold.ttf" as="font" crossOrigin="" />
             </Head>
             <div className="header">
-                <div className="logo">
-                    <Link href="/"><a>
-                        <img src="/logo.png" alt="StatFarm logo" />
-                    </a></Link>
+                <div className="sizer">
+                    <div className="logo">
+                        <Link href="/"><a>
+                            <img src="/logo.png" alt="StatFarm logo" />
+                        </a></Link>
+                    </div>
+                    <div className="nav">
+                        <ul>
+                            <li className={router.pathname === '/' ? 'active' : ''}><Link href="/"><a>Compound</a></Link></li>
+                            <li className={router.pathname === '/balancer' ? 'active' : ''}><Link href="/balancer"><a>Balancer</a></Link></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div className="subheader">
-                <ul>
-                    <li className={router.pathname === '/' ? 'active' : ''}><Link href="/"><a>Compound</a></Link></li>
-                    <li className={router.pathname === '/balancer' ? 'active' : ''}><Link href="/balancer"><a>Balancer</a></Link></li>
-                </ul>
             </div>
             <div className="content">
                 <div className="sizer">
@@ -47,6 +49,15 @@ export default function Layout({ children }) {
                 background-color: #F01716;
                 height: 60px;
                 text-align: center;
+                box-shadow: 0 2px 10px rgba(151,164,175,.1);
+            }
+            .header > .sizer {
+                text-align: left;
+                width: 1150px !important;
+            }
+            .logo {
+                width: 200px;
+                display: inline-block;
             }
             .logo > a > img {
                 height: 30px;
@@ -56,49 +67,47 @@ export default function Layout({ children }) {
             .logo > a:hover > img {
                 opacity: 0.8;
             }
-            .subheader {
-                height: 60px;
-                background-color: #fff;
-                box-shadow: 0 2px 10px rgba(151,164,175,.1);
+            .nav {
+                width: calc(100% - 200px);
+                display: inline-block;
+                vertical-align: top;
+                text-align: right;
             }
-            .subheader {
-                text-align: center;
-            }
-            .subheader > ul {
+            .nav > ul {
                 list-style-type: none;
                 margin: 0px;
                 padding: 0px;
             }
-            .subheader > ul > li {
+            .nav > ul > li {
                 height: 58px;
                 display: inline-block;
                 padding: 0px 10px;
                 margin: 0 7.5px;
                 border-bottom: 2px solid transparent;
+                line-height: 58px;
             }
             .active {
-                border-bottom-color: #F01716 !important;
+                border-bottom-color: #fff !important;
             }
             .active > a {
-                color: #000 !important;
+                color: #fff !important;
             }
-            .subheader > ul > li > a {
+            .nav > ul > li > a {
                 text-decoration: none;
-                color: #8E929C;
+                color: #fab7b7;
                 font-weight: 700;
-                transform: translateY(20px);
                 display: inline-block;
-                transition: 75ms ease-in-out;
+                transition: 75ms ease-in;
             }
-            .subheader > ul > li:hover {
-                border-bottom-color: #F01716;
+            .nav > ul > li:hover {
+                border-bottom-color: #fff;
             }
-            .subheader > ul > li:hover > a {
-                color: #000;
+            .nav > ul > li:hover > a {
+                color: #fff;
             }
             .content {
                 background-color: #F3F5F7;
-                min-height: calc(100vh - 122px);
+                min-height: calc(100vh - 60px);
                 text-align: center;
             }
             .footer {
