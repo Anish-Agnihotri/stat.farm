@@ -45,7 +45,7 @@ export default function AddressItem(props) {
             }
             .vol {
                 display: inline-block;
-                top: 17.5px;
+                top: 16.5px;
                 right: 15px;
                 position: absolute;
                 font-weight: 500;
