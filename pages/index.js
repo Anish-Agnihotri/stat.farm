@@ -7,6 +7,7 @@ import XWideCard from '../components/XWideCard'
 import TickerItem from '../components/TickerItem'
 import AddressItem from '../components/AddressItem'
 import GovernanceItem from '../components/GovernanceItem'
+import COMPDistributionCalculator from '../components/COMPDistributionCalculator'
 import useSWR from 'swr'
 import fetch from 'unfetch'
 
@@ -50,8 +51,8 @@ export default function Compound() {
           <SmallCard name="Annual Interest Received" content={"TODO"} />
           <SmallCard name="Annual Interest Paid" content={"TODO"}/>
         </div>
-        <XWideCard name="Test">
-          <span>Test</span>
+        <XWideCard name="COMP Distribution Calculator">
+          <COMPDistributionCalculator />
         </XWideCard>
         <div>
           <MidCard name="Adresses by Voting Weight">

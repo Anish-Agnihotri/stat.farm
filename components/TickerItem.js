@@ -18,6 +18,9 @@ export default function TickerItem(props) {
                 transition: 50ms ease-in-out;
                 position: relative;
             }
+            .tickeritem:nth-of-type(2n) {
+                background-color: #FDFDFD;
+            }
             .tickeritem:hover {
                 background-color: #fde7e7;
             }

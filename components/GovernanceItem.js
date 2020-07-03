@@ -42,6 +42,9 @@ export default function GovernanceItem(props) {
                 transition: 50ms ease-in-out;
                 position: relative;
             }
+            .governanceItem:nth-of-type(2n) {
+                background-color: #FDFDFD;
+            }
             .governanceItem:hover {
                 background-color: #fde7e7;
             }

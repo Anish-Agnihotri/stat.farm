@@ -1,4 +1,4 @@
-export default function XWideCard(props, { children }) {
+export default function XWideCard(props) {
     return(
         <>
             <div className="x-widecard">
@@ -6,7 +6,7 @@ export default function XWideCard(props, { children }) {
                     <span>{props.name}</span>
                 </div>
                 <div>
-                    {children}
+                    {props.children}
                 </div>
             </div>
             <style jsx>{`
@@ -40,7 +40,6 @@ export default function XWideCard(props, { children }) {
                 border-bottom-left-radius: 5px;
                 border-bottom-right-radius: 5px;
                 text-align: left;
-                height: auto;
                 overflow-y: auto;
             }
             @media screen and (max-width: 1000px) {

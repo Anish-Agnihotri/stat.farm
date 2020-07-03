@@ -26,6 +26,9 @@ export default function AddressItem(props) {
                 transition: 50ms ease-in-out;
                 position: relative;
             }
+            .accountItem:nth-of-type(2n) {
+                background-color: #FDFDFD;
+            }
             .accountItem:hover {
                 background-color: #fde7e7;
             }
