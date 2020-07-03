@@ -32,7 +32,7 @@ export default function Layout({ children }) {
                 </div>
             </div>
             <div className="footer">
-                <span>Developed by <a href="https://anishagnihotri.com">Anish Agnihotri</a>.</span>
+                <span>A side project by <a href="https://anishagnihotri.com">Anish Agnihotri</a>.</span>
             </div>
 
             <style global jsx>{`

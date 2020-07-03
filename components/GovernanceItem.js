@@ -17,7 +17,17 @@ export default function GovernanceItem(props) {
                 </div>
                 <div>
                     <span>{props.proposal.title}</span>
-                    <span>Proposal {props.proposal.id} | {props.proposal.states[props.proposal.states.length - 1].state.charAt(0).toUpperCase() + props.proposal.states[props.proposal.states.length - 1].state.slice(1)} {moment.unix(props.proposal.states[props.proposal.states.length - 1].start_time).fromNow()}</span>
+                    <span>Proposal {props.proposal.id} | <strong>{props.proposal.states[props.proposal.states.length - 1].state.charAt(0).toUpperCase() + props.proposal.states[props.proposal.states.length - 1].state.slice(1)}</strong> {moment.unix(props.proposal.states[props.proposal.states.length - 1].start_time).fromNow()}</span>
+                </div>
+                <div>
+                    <div>
+                        <label for="for">{parseInt(props.proposal.for_votes).toLocaleString()}</label>
+                        <progress id="for" max="1" value={parseInt(props.proposal.for_votes) / (parseInt(props.proposal.against_votes) + parseInt(props.proposal.for_votes))}></progress>
+                    </div>
+                    <div>
+                        <label for="against">{parseInt(props.proposal.against_votes).toLocaleString()}</label>
+                        <progress id="against" max="1" value={parseInt(props.proposal.against_votes) / (parseInt(props.proposal.for_votes) + parseInt(props.proposal.against_votes))}></progress>
+                    </div>
                 </div>
             </a>
             <style jsx>{`
@@ -44,7 +54,7 @@ export default function GovernanceItem(props) {
             .governanceItem > div:nth-child(2) {
                 height: 100%;
                 display: inline-block;
-                width: 300px;
+                width: calc(100% - 272px);
                 vertical-align: top;
             }
             .governanceItem > div:nth-child(2) > span:nth-child(1) {
@@ -55,6 +65,33 @@ export default function GovernanceItem(props) {
             }
             .governanceItem > div:nth-child(2) > span:nth-child(2) {
                 color: #AAB8C1;
+            }
+            .governanceItem > div:nth-child(3) {
+                height: 100%;
+                display: inline-block;
+                width: 250px;
+                vertical-align: top;
+                text-align: right;
+            }
+            .governanceItem > div:nth-child(3) > div > label {
+                padding-right: 10px;
+                font-size: 14px;
+                vertical-align: middle;
+            }
+            .governanceItem > div:nth-child(3) > div > progress {
+                height: 5px;
+                vertical-align: middle;
+                border-radius: 5px;
+            }
+            .governanceItem > div:nth-child(3) > div > progress::-webkit-progress-bar, .governanceItem > div:nth-child(3) > div > progress::-webkit-progress-bar-value {
+                border-radius: 5px;
+                background-color: #ccc;
+            }
+            .governanceItem > div:nth-child(3) > div:nth-child(1) > progress[value]::-webkit-progress-value {
+                background-color: rgb(0, 190, 0);
+            }
+            .governanceItem > div:nth-child(3) > div:nth-child(2) > progress[value]::-webkit-progress-value {
+                background-color: rgb(214, 2, 44);
             }
             .status-light {
                 height: 8px;

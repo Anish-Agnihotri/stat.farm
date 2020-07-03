@@ -45,10 +45,10 @@ export default function Compound() {
           </MidCard>
         </div>
         <div>
-          <SmallCard name="Compound Supply" content={"$" + data.current_price} />
-          <SmallCard name="Compound Borrow" content={"$" + (data.current_price * data.total_supply).toLocaleString()} />
-          <SmallCard name="Annual Interest Received" content={data.total_comp_distributed.toLocaleString()} />
-          <SmallCard name="Annual Interest Paid" content={"$" + data.total_volume.toLocaleString()}/>
+          <SmallCard name="Compound Supply" content={"TODO"} />
+          <SmallCard name="Compound Borrow" content={"TODO"} />
+          <SmallCard name="Annual Interest Received" content={"TODO"} />
+          <SmallCard name="Annual Interest Paid" content={"TODO"}/>
         </div>
         <XWideCard name="Test">
           <span>Test</span>
