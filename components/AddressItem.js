@@ -1,13 +1,21 @@
-export default function TickerItem(props) {
+export default function AddressItem(props) {
     return(
         <>
-            <a href={props.ticker.trade_url} target="_blank" rel="noopener noreferrer" className="tickeritem">
-                <img src={props.ticker.market.logo} alt={`${props.ticker.market.name} logo`} />
-                <span><strong>{props.ticker.market.name}</strong> ({props.ticker.target})</span>
-                <span className="vol">${(props.ticker.converted_volume.usd).toLocaleString()}</span>
+            <a href={props.address.account_url} target="_blank" rel="noopener noreferrer" className="accountItem">
+                {props.address.image_url ? (
+                    <img src={props.address.image_url} alt={`${props.address.image_url} profile picture`} />
+                ) : (
+                    <img src={`https://api.adorable.io/avatars/50/${props.address.image_url}.png`} alt={`${props.address.image_url} profile picture`} />
+                )}
+                {props.address.display_name ? (
+                    <span><strong>{props.address.display_name}</strong></span>
+                ) : (
+                    <span><strong>{props.address.address.substring(0, 7) + '...' + props.address.address.slice(props.address.address.length - 5)}</strong></span>
+                )}
+                <span className="vol">${(props.price * props.address.votes).toLocaleString()}</span>
             </a>
             <style jsx>{`
-            .tickeritem {
+            .accountItem {
                 width: calc(100% - 40px);
                 display: inline-block;
                 padding: 10px 20px;
@@ -18,16 +26,16 @@ export default function TickerItem(props) {
                 transition: 50ms ease-in-out;
                 position: relative;
             }
-            .tickeritem:hover {
+            .accountItem:hover {
                 background-color: #fde7e7;
             }
-            .tickeritem > img {
+            .accountItem > img {
                 height: 30px;
                 width: 30px;
                 border-radius: 50%;
                 margin-right: 10px;
             }
-            .tickeritem > span:nth-of-type(1) {
+            .accountItem > span:nth-of-type(1) {
                 vertical-align: top;
                 display: inline-block;
                 transform: translateY(8px);

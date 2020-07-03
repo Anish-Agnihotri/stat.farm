@@ -8,7 +8,7 @@ export default function Home() {
 				<title>StatFarm | Balancer</title>
 			</Head>
 			<Layout>
-				
+				<h1>Coming soon.</h1>
 			</Layout>
 		</div>
 	)

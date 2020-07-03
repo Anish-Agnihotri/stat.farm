@@ -26,7 +26,7 @@ export default function SmallCard(props) {
                 display: inline-block;
                 border-top-left-radius: 5px;
                 border-top-right-radius: 5px;
-                border-bottom: 1.5px solid #f1f1f3;
+                border-bottom: 1px solid #e7eaf3;
                 text-align: left;
             }
             .statcard > div:nth-child(1) > span {

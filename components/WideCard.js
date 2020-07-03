@@ -12,7 +12,7 @@ export default function WideCard(props, { children }) {
             <style jsx>{`
             .widecard {
                 width: calc(60% - 40px);
-                margin: 10px 10px;
+                margin: 0px 10px 20px 10px;
                 background-color: #fff;
                 border-radius: 5px;
                 border: 1px solid #e7eaf3;
@@ -25,7 +25,7 @@ export default function WideCard(props, { children }) {
                 display: inline-block;
                 border-top-left-radius: 5px;
                 border-top-right-radius: 5px;
-                border-bottom: 1.5px solid #f1f1f3;
+                border-bottom: 1px solid #e7eaf3;
                 text-align: left;
             }
             .widecard > div:nth-child(1) > span {
@@ -37,10 +37,11 @@ export default function WideCard(props, { children }) {
             .widecard > div:nth-child(2) {
                 display: inline-block;
                 width: 100%;
-                height: auto;
                 border-bottom-left-radius: 5px;
                 border-bottom-right-radius: 5px;
                 text-align: left;
+                height: 400px;
+                overflow-y: auto;
             }
             @media screen and (max-width: 1000px) {
                 .widecard {

@@ -30,12 +30,16 @@ export default function Layout({ children }) {
                     {children}
                 </div>
             </div>
+            <div className="footer">
+                <span>Developed by <a href="https://anishagnihotri.com">Anish Agnihotri</a>.</span>
+            </div>
 
             <style global jsx>{`
                 body {
                     padding: 0px;
                     margin: 0px;
                     font-family: 'Open Sans', sans-serif;
+                    background-color: #F3F5F7;
                 }
             `}</style>
             <style jsx>{`
@@ -96,6 +100,14 @@ export default function Layout({ children }) {
                 background-color: #F3F5F7;
                 min-height: calc(100vh - 122px);
                 text-align: center;
+            }
+            .footer {
+                text-align: center;
+                background-color: #F3F5F7;
+                padding: 10px 0px 20px 0px;
+            }
+            .footer > span > a {
+                color: #F01716;
             }
             .sizer {
                 display: inline-block;
