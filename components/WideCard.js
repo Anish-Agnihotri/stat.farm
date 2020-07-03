@@ -12,12 +12,13 @@ export default function WideCard(props, { children }) {
             <style jsx>{`
             .widecard {
                 width: calc(60% - 40px);
-                margin: 0px 10px 20px 10px;
+                margin: 0px 10px 0px 10px;
                 background-color: #fff;
                 border-radius: 5px;
                 border: 1px solid #e7eaf3;
                 box-shadow: 0 0 35px rgba(127,150,174,.125);
                 display: inline-block;
+                height: 436px;
             }
             .widecard > div:nth-child(1) {
                 height: 35px;
@@ -46,6 +47,14 @@ export default function WideCard(props, { children }) {
             @media screen and (max-width: 1000px) {
                 .widecard {
                     width: calc(100% - 55px);
+                }
+                .widecard:nth-of-type(2) {
+                    margin-top: 20px;
+                }
+            }
+            @media screen and (max-width: 600px) {
+                .widecard {
+                    width: calc(100% - 40px);
                 }
             }
             `}</style>

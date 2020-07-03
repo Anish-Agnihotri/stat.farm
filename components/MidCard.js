@@ -12,7 +12,7 @@ export default function MidCard(props) {
             <style jsx>{`
             .midcard {
                 width: calc(40% - 40px);
-                margin: 0px 10px 20px 10px;
+                margin: 0px 10px 0px 10px;
                 background-color: #ccc;
                 display: inline-block;
                 height: 436px;
@@ -48,6 +48,12 @@ export default function MidCard(props) {
             @media screen and (max-width: 1000px) {
                 .midcard {
                     width: calc(100% - 55px);
+                    margin-top: 20px;
+                }
+            }
+            @media screen and (max-width: 600px) {
+                .midcard {
+                    width: calc(100% - 40px);
                 }
             }
             `}</style>

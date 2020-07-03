@@ -3,6 +3,7 @@ import Layout from '../components/Layout'
 import SmallCard from '../components/SmallCard'
 import WideCard from '../components/WideCard'
 import MidCard from '../components/MidCard'
+import XWideCard from '../components/XWideCard'
 import TickerItem from '../components/TickerItem'
 import AddressItem from '../components/AddressItem'
 import useSWR from 'swr'
@@ -28,27 +29,42 @@ export default function Compound() {
       </Head>
       <Layout>
         <p className="data-retrieved"><div className="status-light"></div> Data retrieved in real-time.</p>
-        <SmallCard name="COMP Price" content={"$" + data.current_price} />
-        <SmallCard name="Market Cap" content={"$" + (data.current_price * data.total_supply).toLocaleString()} />
-        <SmallCard name="COMP Dispensed" content={data.total_comp_distributed.toLocaleString()} />
-        <SmallCard name="24H Volume" content={"$" + data.total_volume.toLocaleString()}/>
-        <WideCard name="Token Mining Profitability"/>
-        <MidCard name="COMP Market Volume">
-          {data.tickers.map((ticker, i) => {
-            return <TickerItem key={i} ticker={ticker} />
-          })}
-        </MidCard>
-        <MidCard name="Adresses by Voting Weight">
-          {data.addresses.map((address, i) => {
-            return <AddressItem key={i} price={data.current_price} address={address} />
-          })}
-        </MidCard>
-        <WideCard name="Profitability calculator"/>
+        <div>
+          <SmallCard name="COMP Price" content={"$" + data.current_price} />
+          <SmallCard name="Market Cap (Fully diluted)" content={"$" + (data.current_price * data.total_supply).toLocaleString()} />
+          <SmallCard name="COMP Dispensed (of 4.2M)" content={data.total_comp_distributed.toLocaleString()} />
+          <SmallCard name="24H Volume (Cleaned)" content={"$" + data.total_volume.toLocaleString()}/>
+        </div>
+        <div>
+          <WideCard name="Token Mining Profitability"/>
+          <MidCard name="COMP Market Volumes">
+            {data.tickers.map((ticker, i) => {
+              return <TickerItem key={i} ticker={ticker} />
+            })}
+          </MidCard>
+        </div>
+        <div>
+          <SmallCard name="Compound Supply" content={"$" + data.current_price} />
+          <SmallCard name="Compound Borrow" content={"$" + (data.current_price * data.total_supply).toLocaleString()} />
+          <SmallCard name="Annual Interest Received" content={data.total_comp_distributed.toLocaleString()} />
+          <SmallCard name="Annual Interest Paid" content={"$" + data.total_volume.toLocaleString()}/>
+        </div>
+        <XWideCard name="Test">
+          <span>Test</span>
+        </XWideCard>
+        <div>
+          <MidCard name="Adresses by Voting Weight">
+            {data.addresses.map((address, i) => {
+              return <AddressItem key={i} price={data.current_price} address={address} />
+            })}
+          </MidCard>
+          <WideCard name="Governance Proposals"/>
+        </div>
       </Layout>
       <style jsx>{`
       .data-retrieved {
         display: inline-block;
-        width: calc(100% - 50px);
+        width: calc(100% - 55px);
         margin-block-end: 0px;
         background-color: #fff;
         height: 40px;
@@ -69,6 +85,11 @@ export default function Compound() {
         background-color: rgb(0, 190, 0);
         box-shadow: 0 0 0 0 rgba(0, 190, 0, 1);
         animation: pulsegreen 2s infinite;
+      }
+      @media screen and (max-width: 600px) {
+        .data-retrieved {
+          width: calc(100% - 40px);
+        }
       }
       @keyframes pulsegreen {
         0% {

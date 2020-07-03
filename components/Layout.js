@@ -22,7 +22,6 @@ export default function Layout({ children }) {
                     <div className="nav">
                         <ul>
                             <li className={router.pathname === '/' ? 'active' : ''}><Link href="/"><a>Compound</a></Link></li>
-                            <li className={router.pathname === '/balancer' ? 'active' : ''}><Link href="/balancer"><a>Balancer</a></Link></li>
                         </ul>
                     </div>
                 </div>
@@ -113,7 +112,7 @@ export default function Layout({ children }) {
             .footer {
                 text-align: center;
                 background-color: #F3F5F7;
-                padding: 10px 0px 20px 0px;
+                padding: 20px 0px 20px 0px;
             }
             .footer > span > a {
                 color: #F01716;
@@ -130,10 +129,16 @@ export default function Layout({ children }) {
                 .sizer {
                     width: 90vw;
                 }
+                .header > .sizer {
+                    width: calc(90vw - 50px) !important;
+                }
             }
             @media screen and (max-width: 600px) {
                 .sizer {
                     width: 95vw;
+                }
+                .header > .sizer {
+                    width: calc(95vw - 50px) !important;
                 }
             }
             `}</style>
