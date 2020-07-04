@@ -8,16 +8,18 @@ import TickerItem from '../components/TickerItem'
 import AddressItem from '../components/AddressItem'
 import GovernanceItem from '../components/GovernanceItem'
 import COMPDistributionCalculator from '../components/COMPDistributionCalculator'
-import BeatLoader from "react-spinners/BeatLoader";
+import BeatLoader from "react-spinners/BeatLoader"
+import COMPChart from '../components/COMPChart'
 import useSWR from 'swr'
 import fetch from 'unfetch'
 
 const fetcher = url => fetch(url).then(r => r.json())
 
 export default function Compound() {
-  const { data: data_info, error: info_error } = useSWR('/api/compound/info', fetcher, { refreshInterval: 2000 });
-  const { data: data_markets, error: markets_error } = useSWR('/api/compound/markets', fetcher, { refreshInterval: 2000 });
-  const { data: data_governance, error: governance_error } = useSWR('/api/compound/governance', fetcher, { refreshInterval: 2000 });
+  const { data: data_info } = useSWR('/api/compound/info', fetcher, { refreshInterval: 2000 });
+  const { data: data_markets } = useSWR('/api/compound/markets', fetcher, { refreshInterval: 2000 });
+  const { data: data_governance } = useSWR('/api/compound/governance', fetcher, { refreshInterval: 2000 });
+  const { data: data_candles } = useSWR("https://dev-api.shrimpy.io/v1/exchanges/coinbasepro/candles?quoteTradingSymbol=USD&baseTradingSymbol=COMP&interval=1H", fetcher);
 
   return (
     <div className="container">
@@ -35,7 +37,9 @@ export default function Compound() {
           <SmallCard name="24H Volume (Cleaned)" content={data_info ? "$" + data_info.total_volume.toLocaleString() : <CustomLoader />}/>
         </div>
         <div>
-          <WideCard name="COMP/USD"/>
+          <WideCard name="COMP/USD (Coinbase)">
+            {data_candles ? <COMPChart data={data_candles} /> : <CustomLoader />}
+          </WideCard>
           <MidCard name="COMP Market Volumes">
             {data_info ? data_info.tickers.map((ticker, i) => {
               return <TickerItem key={i} ticker={ticker} />
