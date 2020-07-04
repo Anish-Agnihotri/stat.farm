@@ -17,14 +17,14 @@ export default function Layout({ children }) {
                 <meta name="og:description" property="og:description" content="Stat.Farm is your one-stop shop for COMP data and calculations. Like a good neighbour, Stat.Farm is there." />
                 <meta property="og:site_name" content="Stat.Farm" />
                 <meta property="og:url" content="https://stat.farm" />  
-                <meta name="twitter:card" content="summary_large_image" /> 
-                <meta name="twitter:title" content="Stat.Farm" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Stat.Farm | COMP Data and Calculator" />
                 <meta name="twitter:description" content="Stat.Farm is your one-stop shop for COMP data and calculations. Like a good neighbour, Stat.Farm is there." />
                 <meta name="twitter:site" content="https://stat.farm" />
                 <meta name="twitter:creator" content="https://twitter.com/_anishagnihotri" />
                 <link rel="apple-touch-icon" href="/favicon.ico" />
-                <meta property="og:image" content="/metaimage.png" />
-                <meta name="twitter:image" content="/metaimage.png" />
+                <meta property="og:image" content="https://stat.farm/metaimage.png" />
+                <meta name="twitter:image" content="https://stat.farm/metaimage.png" />
             </Head>
             <div className="header">
                 <div className="sizer">

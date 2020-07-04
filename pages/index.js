@@ -19,7 +19,7 @@ export default function Compound() {
   const { data: data_info } = useSWR('/api/compound/info', fetcher, { refreshInterval: 2000 });
   const { data: data_markets } = useSWR('/api/compound/markets', fetcher, { refreshInterval: 2000 });
   const { data: data_governance } = useSWR('/api/compound/governance', fetcher, { refreshInterval: 2000 });
-  const { data: data_candles } = useSWR("https://dev-api.shrimpy.io/v1/exchanges/coinbasepro/candles?quoteTradingSymbol=USD&baseTradingSymbol=COMP&interval=1H", fetcher);
+  const { data: data_candles } = useSWR("/api/compound/chart", fetcher);
 
   return (
     <div className="container">
