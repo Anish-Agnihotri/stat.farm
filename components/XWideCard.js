@@ -18,6 +18,7 @@ export default function XWideCard(props) {
                 border: 1px solid #e7eaf3;
                 box-shadow: 0 0 35px rgba(127,150,174,.125);
                 display: inline-block;
+                min-height: 400px;
             }
             .x-widecard > div:nth-child(1) {
                 height: 35px;

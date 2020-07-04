@@ -8,21 +8,16 @@ import TickerItem from '../components/TickerItem'
 import AddressItem from '../components/AddressItem'
 import GovernanceItem from '../components/GovernanceItem'
 import COMPDistributionCalculator from '../components/COMPDistributionCalculator'
+import BeatLoader from "react-spinners/BeatLoader";
 import useSWR from 'swr'
 import fetch from 'unfetch'
 
 const fetcher = url => fetch(url).then(r => r.json())
 
 export default function Compound() {
-  const { data, error } = useSWR('/api/compound', fetcher, { refreshInterval: 2000 });
-
-  if (!data) return (
-    <div>
-      <Layout>
-        <span>Loading...</span>
-      </Layout>
-    </div>
-  )
+  const { data: data_info, error: info_error } = useSWR('/api/compound/info', fetcher, { refreshInterval: 2000 });
+  const { data: data_markets, error: markets_error } = useSWR('/api/compound/markets', fetcher, { refreshInterval: 2000 });
+  const { data: data_governance, error: governance_error } = useSWR('/api/compound/governance', fetcher, { refreshInterval: 2000 });
 
   return (
     <div className="container">
@@ -30,43 +25,73 @@ export default function Compound() {
         <title>StatFarm | Compound</title>
       </Head>
       <Layout>
-        <p className="data-retrieved"><div className="status-light"></div> Data retrieved in real-time.</p>
         <div>
-          <SmallCard name="COMP Price" content={"$" + data.current_price} />
-          <SmallCard name="Market Cap (Fully diluted)" content={"$" + (data.current_price * data.total_supply).toLocaleString()} />
-          <SmallCard name="COMP Dispensed (of 4.2M)" content={data.total_comp_distributed.toLocaleString()} />
-          <SmallCard name="24H Volume (Cleaned)" content={"$" + data.total_volume.toLocaleString()}/>
+          <p className="data-retrieved"><span className="status-light"></span>Data retrieved in real-time.</p>
+        </div>
+        <div>
+          <SmallCard name="COMP Price" content={data_info ? "$" + data_info.current_price : <CustomLoader />} />
+          <SmallCard name="Market Cap (Fully diluted)" content={data_info ? "$" + (data_info.current_price * data_info.total_supply).toLocaleString() : <CustomLoader />} />
+          <SmallCard name="COMP Dispensed (of 4.2M)" content={data_info ? data_info.total_comp_distributed.toLocaleString() : <CustomLoader />} />
+          <SmallCard name="24H Volume (Cleaned)" content={data_info ? "$" + data_info.total_volume.toLocaleString() : <CustomLoader />}/>
         </div>
         <div>
           <WideCard name="COMP/USD"/>
           <MidCard name="COMP Market Volumes">
-            {data.tickers.map((ticker, i) => {
+            {data_info ? data_info.tickers.map((ticker, i) => {
               return <TickerItem key={i} ticker={ticker} />
-            })}
+            }) : (
+              <div className="centerize">
+                <CustomLoader />
+              </div>
+            )}
           </MidCard>
         </div>
         <div>
-          <SmallCard name="Compound Supply" content={"TODO"} />
-          <SmallCard name="Compound Borrow" content={"TODO"} />
-          <SmallCard name="Annual Interest Received" content={"TODO"} />
-          <SmallCard name="Annual Interest Paid" content={"TODO"}/>
+          <SmallCard name="Compound Supply" content={data_markets ? "$" + parseInt(data_markets.total_supply).toLocaleString() : <CustomLoader />} />
+          <SmallCard name="Compound Borrow" content={data_markets ? "$" + parseInt(data_markets.total_borrow).toLocaleString() : <CustomLoader />} />
+          <SmallCard name="Annual Interest Received" content={data_markets ? "$" + parseInt(data_markets.earned_interest).toLocaleString() : <CustomLoader />} />
+          <SmallCard name="Annual Interest Paid" content={data_markets ? "$" + parseInt(data_markets.paid_interest).toLocaleString() : <CustomLoader />} />
         </div>
         <XWideCard name="COMP Distribution Calculator">
-          <COMPDistributionCalculator />
+          {data_markets ? (
+            <COMPDistributionCalculator data={data_markets.tokens} />
+          ) : (
+            <div className="centerize">
+              <CustomLoader />
+            </div>
+          )}
         </XWideCard>
         <div>
           <MidCard name="Adresses by Voting Weight">
-            {data.addresses.map((address, i) => {
-              return <AddressItem key={i} price={data.current_price} address={address} />
-            })}
+            {data_governance ? data_governance.addresses.map((address, i) => {
+              return <AddressItem key={i} price={data_governance.current_price} address={address} />
+            }) : (
+              <div className="centerize">
+                <CustomLoader />
+              </div>
+            )}
           </MidCard>
           <WideCard name="Governance Proposals">
-            {data.proposals.map((proposal, i) => {
+            {data_governance ? data_governance.proposals.map((proposal, i) => {
               return <GovernanceItem key={i} proposal={proposal} />
-            })}
+            }) : (
+              <div className="centerize">
+                <CustomLoader />
+              </div>
+            )}
           </WideCard>
         </div>
       </Layout>
+      <style global jsx>{`
+      .centerize {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+      }
+      .centerize > div {
+        transform: translateY(200px);
+      }
+      `}</style>
       <style jsx>{`
       .data-retrieved {
         display: inline-block;
@@ -116,4 +141,12 @@ export default function Compound() {
       `}</style>
     </div>
   )
+}
+
+function CustomLoader() {
+  return <BeatLoader
+    size={10}
+    color={"#F01716"}
+    loading={true}
+  />
 }

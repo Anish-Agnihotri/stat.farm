@@ -1,12 +1,6 @@
 import ReactTable from 'react-table-6'
-import useSWR from 'swr'
-import fetch from 'unfetch'
 
-const fetcher = url => fetch(url).then(r => r.json())
-
-export default function COMPDistributionCalculator() {
-    const { data, error } = useSWR('/api/comptokens', fetcher);
-    
+export default function COMPDistributionCalculator(props) {
     const columns = [
         {Header: 'Market', Accessor: 'image', Cell: row => <MarketItem {...row.original} />},
         {Header: 'Gross Supply', Accessor: 'gross_supply', Cell: row => <FormatItem {...row.original} type="supply" />},
@@ -17,15 +11,13 @@ export default function COMPDistributionCalculator() {
         {Header: '$ Borrowed', Accessor: 'gross_borrow', Cell: row => <CalcCell {...row.original} />},
     ];
 
-    if (!data) return <p>Loading...</p>
-
     return (
         <>
             <ReactTable
-                data={data}
+                data={props.data}
                 columns={columns} 
                 showPagination={false}
-                defaultPageSize={data.length}
+                defaultPageSize={props.data.length}
                 resizable={false}
                 className="comp-table"
             />

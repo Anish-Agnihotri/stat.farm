@@ -13,6 +13,7 @@
     "next": "9.4.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-spinners": "^0.9.0",
     "react-table-6": "^6.11.0",
     "swr": "^0.2.3",
     "unfetch": "^4.1.0"
