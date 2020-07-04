@@ -58,7 +58,7 @@ export default function Compound() {
         </div>
         <XWideCard name="COMP Distribution Calculator">
           {data_markets ? (
-            <COMPDistributionCalculator data={data_markets.tokens} />
+            <COMPDistributionCalculator data={data_markets.tokens} price={data_markets.comp_price} />
           ) : (
             <div className="centerize">
               <br />

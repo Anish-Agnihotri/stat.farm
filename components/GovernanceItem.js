@@ -21,11 +21,11 @@ export default function GovernanceItem(props) {
                 </div>
                 <div>
                     <div>
-                        <label for="for">{parseInt(props.proposal.for_votes).toLocaleString()}</label>
+                        <label htmlFor="for">{parseInt(props.proposal.for_votes).toLocaleString()}</label>
                         <progress id="for" max="1" value={parseInt(props.proposal.for_votes) / (parseInt(props.proposal.against_votes) + parseInt(props.proposal.for_votes))}></progress>
                     </div>
                     <div>
-                        <label for="against">{parseInt(props.proposal.against_votes).toLocaleString()}</label>
+                        <label htmlFor="against">{parseInt(props.proposal.against_votes).toLocaleString()}</label>
                         <progress id="against" max="1" value={parseInt(props.proposal.against_votes) / (parseInt(props.proposal.for_votes) + parseInt(props.proposal.against_votes))}></progress>
                     </div>
                 </div>
