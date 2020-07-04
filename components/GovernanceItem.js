@@ -119,6 +119,15 @@ export default function GovernanceItem(props) {
                 background-color: rgb(214, 2, 44);
                 box-shadow: 0 0 0 0 rgba(214, 2, 44, 1);
             }
+            @media screen and (max-width: 550px) {
+                .governanceItem > div:nth-child(2) {
+                    width: calc(100% - 22px);
+                }
+                .governanceItem > div:nth-child(3) {
+                    width: 100%;
+                    padding-top: 15px;
+                }
+            }
             @keyframes pulsegray {
                 0% {
                     transform: scale(0.95);

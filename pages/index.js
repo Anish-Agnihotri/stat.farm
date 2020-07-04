@@ -28,7 +28,7 @@ export default function Compound() {
       </Head>
       <Layout>
         <div>
-          <p className="data-retrieved"><span className="status-light"></span>Data retrieved in real-time.</p>
+          <p className="data-retrieved"><span className="status-light"></span>Data retrieved in real-time, rendered on edge (serverless).</p>
         </div>
         <div>
           <SmallCard name="COMP Price" content={data_info ? "$" + data_info.current_price : <CustomLoader />} />
@@ -61,7 +61,8 @@ export default function Compound() {
             <COMPDistributionCalculator data={data_markets.tokens} />
           ) : (
             <div className="centerize">
-              <CustomLoader />
+              <br />
+              <p>Loading calculator...</p>
             </div>
           )}
         </XWideCard>

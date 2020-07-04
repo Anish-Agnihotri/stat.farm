@@ -1,6 +1,9 @@
 import ReactTable from 'react-table-6'
+import {useState} from 'react'
 
 export default function COMPDistributionCalculator(props) {
+    const [distribution, setDistribution] = useState([]);
+
     const columns = [
         {Header: 'Market', Accessor: 'image', Cell: row => <MarketItem {...row.original} />},
         {Header: 'Gross Supply', Accessor: 'gross_supply', Cell: row => <FormatItem {...row.original} type="supply" />},
@@ -21,6 +24,14 @@ export default function COMPDistributionCalculator(props) {
                 resizable={false}
                 className="comp-table"
             />
+            <div className="token-distribution">
+                <span>Your Token Distribution:</span>
+                <ul>
+                    <li><strong>X COMP</strong> ($X Value)</li>
+                    <li><strong>$X</strong> in net interest earned</li>
+                    <li><strong>X%</strong> net APY (<strong>X</strong> on <strong>X</strong> capital)</li>
+                </ul>
+            </div>
             <style global jsx>{`
             .-header {
                 height: 30px;
@@ -35,9 +46,6 @@ export default function COMPDistributionCalculator(props) {
             }
             .rt-tbody, .rt-thead {
                 min-width: 1055px !important;
-            }
-            .rt-tbody > div:last-of-type > .rt-tr {
-                border-bottom: none;
             }
             .-header > .rt-tr > .rt-th:nth-of-type(1) > div {
                 padding-left: 25px;
@@ -83,6 +91,16 @@ export default function COMPDistributionCalculator(props) {
             }
             .comp-table {
                 border: none;
+            }
+            `}</style>
+            <style jsx>{`
+            .token-distribution {
+                width: calc(100% - 80px);
+                margin: 20px;
+                padding: 20px;
+                background-color: rgba(214, 2, 44, 0.2);
+                border: 1px solid rgb(214, 2, 44);
+                border-radius: 5px;
             }
             `}</style>
         </>
@@ -241,7 +259,7 @@ function CalcCell(props) {
     return (
         <>
             <div className="calc">
-                <input type="number" placeholder={`${props.symbol} (USD) value`}/>
+                <input type="number" placeholder={`${props.symbol} (USD) value`} min="0" onChange={e => updateDistribution(e.target.value)} />
             </div>
             <style jsx>{`
             .calc > input {

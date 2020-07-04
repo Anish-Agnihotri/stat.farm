@@ -6,7 +6,7 @@ export default function COMPChart(props) {
     let chart_data = [];
 
     for (let i = 0; i < props.data.length; i++) {
-        labels.push(moment.utc(props.data[i].time).format('MM/DD/YYYY'));
+        labels.push(moment.utc(props.data[i].time).format('MM/DD'));
         chart_data.push(props.data[i].close);
     }
 

@@ -85,9 +85,6 @@ export default function Layout({ children }) {
                 border-bottom: 2px solid transparent;
                 line-height: 58px;
             }
-            .active {
-                border-bottom-color: #fff !important;
-            }
             .active > a {
                 color: #fff !important;
             }
@@ -97,9 +94,6 @@ export default function Layout({ children }) {
                 font-weight: 700;
                 display: inline-block;
                 transition: 75ms ease-in;
-            }
-            .nav > ul > li:hover {
-                border-bottom-color: #fff;
             }
             .nav > ul > li:hover > a {
                 color: #fff;
