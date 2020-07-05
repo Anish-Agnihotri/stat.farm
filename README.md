@@ -1,30 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+    <img src="https://i.imgur.com/ahmwq3S.png" alt="Stat.Farm Github Header">
+</p>
 
-## Getting Started
+# Stat.Farm
+Stat.Farm is a simple [Compound Finance](https://compound.finance) dashboard and COMP governance token distribution calculator built with NextJS + Node.JS serverless funtions. It pulls data from a collection of API's (listed below) and presents the information in a simple mobile-responsive grid.
 
-First, run the development server:
+**API's consumed:**
 
-```bash
-npm run dev
-# or
-yarn dev
+* [Shrimpy](https://dev-api.shrimpy.io/) for COMP/USD pair Coinbase Pro candlestick data.
+* [Compound Finance](https://api.compound.finance) for COMP holder, governance proposal, market, and historic market data.
+* [CoinGecko](https://api.coingecko.com/api/v3/) for general COMP token information, ETH price, and exchange volume data.
+
+Stat.Farm is deployed to [Vercel](https://vercel.com). 
+
+Stat.Farm has no affiliation with StateFarm. Just a fun play on words.
+
+# Run locally
 ```
+# If using yarn
+yarn && yarn dev
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# If using npm
+npm install && npm run dev
+```
+# Contributions
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+I built this out over about a day, so that I wouldn't have to use Excel to calculate COMP yield. I'll potentially come back to this in the future and add in more functionality (like governance proposal vote charting, etc.).
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If there's a feature that would improve your COMP-observing quality of life, I'm open to PRs, or [message me on Twitter](https://twitter.com/_anishagnihotri) and I'll add the feature.
