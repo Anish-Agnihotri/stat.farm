@@ -17,8 +17,8 @@ const fetcher = url => fetch(url).then(r => r.json())
 
 export default function Compound() {
   const { data: data_info } = useSWR('/api/compound/info', fetcher, { refreshInterval: 2000 });
-  const { data: data_markets } = useSWR('/api/compound/markets', fetcher, { refreshInterval: 2000 });
-  const { data: data_governance } = useSWR('/api/compound/governance', fetcher, { refreshInterval: 2000 });
+  const { data: data_markets } = useSWR('/api/compound/markets', fetcher, { refreshInterval: 5000 });
+  const { data: data_governance } = useSWR('/api/compound/governance', fetcher, { refreshInterval: 20000 });
   const { data: data_candles } = useSWR("/api/compound/chart", fetcher);
 
   return (
@@ -28,7 +28,7 @@ export default function Compound() {
       </Head>
       <Layout>
         <div>
-          <p className="data-retrieved"><span className="status-light"></span>Data retrieved in real-time, rendered on edge (serverless).</p>
+          <p className="data-retrieved"><span className="status-light"></span>Data retrieved in real-time.</p>
         </div>
         <div>
           <SmallCard name="COMP Price" content={data_info ? "$" + data_info.current_price : <CustomLoader />} />

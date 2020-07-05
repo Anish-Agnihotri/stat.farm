@@ -73,8 +73,8 @@ export default function Layout({ children }) {
                 display: inline-block;
             }
             .logo > a > img {
-                height: 30px;
-                margin-top: 16px;
+                width: 175px;
+                margin-top: 17px;
                 transition: 50ms ease-in-out;
             }
             .logo > a:hover > img {
@@ -92,12 +92,12 @@ export default function Layout({ children }) {
                 padding: 0px;
             }
             .nav > ul > li {
-                height: 58px;
+                height: 60px;
                 display: inline-block;
                 padding: 0px 10px;
                 margin: 0 7.5px;
                 border-bottom: 2px solid transparent;
-                line-height: 58px;
+                line-height: 60px;
             }
             .active > a {
                 color: #fff !important;

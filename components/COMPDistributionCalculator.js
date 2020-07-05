@@ -244,7 +244,7 @@ function MarketItem(props) {
         <>
             <div className="marketItem">
                 <div>
-                    <img src={props.image} />
+                    <img src={props.image} alt={`${props.symbol} logo`} />
                 </div>
                 <div>
                     <span>{props.name}</span>
@@ -389,13 +389,13 @@ function formatNum(value) {
 
 function CalcCell(props) {
     function updateNum(value) {
-        props.updateDistribution(props.type === 'supply' ? 'supply' : 'borrow', props.symbol, parseInt(value));
+        props.updateDistribution(props.type === 'supply' ? 'supply' : 'borrow', props.symbol, parseFloat(value));
     }
 
     return (
         <>
             <div className="calc">
-                <input type="number" value={props.distribution[props.type === 'supply' ? 'supply' : 'borrow'][props.symbol]} placeholder={`${props.symbol} (USD) value`} min="0" onChange={e => updateNum(e.target.value)} />
+                <input type="number" step="any" value={props.distribution[props.type === 'supply' ? 'supply' : 'borrow'][props.symbol]} placeholder={`${props.symbol} (USD) value`} min="0" onChange={e => updateNum(e.target.value)} />
             </div>
             <style jsx>{`
             .calc > input {
