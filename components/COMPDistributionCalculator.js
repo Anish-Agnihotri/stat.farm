@@ -1,7 +1,8 @@
-import ReactTable from 'react-table-6'
-import {useState, useEffect} from 'react'
+import ReactTable from 'react-table-6' // React-table
+import {useState, useEffect} from 'react' // State storage for calculations
 
 export default function COMPDistributionCalculator(props) {
+    // Initialize distribution input state holder
     const [distribution, setDistribution] = useState({
         "supply": {
             'DAI': 0,
@@ -26,8 +27,11 @@ export default function COMPDistributionCalculator(props) {
             'SAI': 0
         }});
 
+    // On change in distribution, re-calculate token distribution
     useEffect(() => calculateValues(), [distribution]);
 
+    // Setup hooks to hold input values.
+    // This could have been one item but this is easier to manage.
     const [interest_earned, set_interest_earned] = useState(0);
     const [interest_paid, set_interest_paid] = useState(0);
     const [comp_earned, set_comp_earned] = useState(0);
@@ -35,10 +39,12 @@ export default function COMPDistributionCalculator(props) {
     const [net_earnings, set_net_earnings] = useState(0);
     const [net_apy, set_net_apy] = useState(0);
 
+    // Update distribution function
     function updateDistribution(type, symbol, value) {
         let opposite = {...distribution[type === 'supply' ? 'borrow' : 'supply']};
         let existing = {...distribution[type === 'supply' ? 'supply' : 'borrow']}
         
+        // Mutate object depending on input field
         setDistribution({
             [type === 'supply' ? 'borrow' : 'supply']: {
                 ...opposite
@@ -48,19 +54,22 @@ export default function COMPDistributionCalculator(props) {
                 [symbol]: isNaN(value) ? 0 : value
             }
         });
-
-        calculateValues();
     }
 
+    // Calculate COMP distribution
     function calculateValues() {
-        let comp_earned = 0;
-        let int_earned = 0;
-        let int_paid = 0;
-        let sum_amount = 0;
+        let comp_earned = 0; // Total COMP Earned
+        let int_earned = 0; // Earned interest
+        let int_paid = 0; // Paid interest
+        let sum_amount = 0; // Sum of supplied or borrowed
 
+        // Loop through supplied tokens
         for (var key in distribution.supply) {
+            // If supplied value > $0
             if (parseFloat(distribution.supply[key]) > 0) {
+                // Loop through Compound-supported tokens
                 for (let i = 0; i < props.data.length; i++) {
+                    // Search for matching token and increment values
                     if (props.data[i].symbol === key) {
                         int_earned += parseFloat(distribution.supply[key]) * (parseFloat(props.data[i].supply_apy) / 100);
                         comp_earned += (parseFloat(distribution.supply[key]) / props.data[i].gross_supply) * props.data[i].comp_allocation;
@@ -70,9 +79,13 @@ export default function COMPDistributionCalculator(props) {
             }
         }
 
+        // Loop through borrowed tokens
         for (var key in distribution.borrow) {
+            // If borrowed value > $0
             if (parseFloat(distribution.borrow[key]) > 0) {
+                // Loop through Compound-supported tokens
                 for (let i = 0; i < props.data.length; i++) {
+                    // Search for matching tokens and increment values
                     if (props.data[i].symbol === key) {
                         int_paid += parseFloat(distribution.borrow[key]) * (parseFloat(props.data[i].borrow_apy) / 100);
                         comp_earned += (parseFloat(distribution.borrow[key]) / props.data[i].gross_borrow) * props.data[i].comp_allocation;
@@ -82,8 +95,10 @@ export default function COMPDistributionCalculator(props) {
             }
         }
 
+        // Net earnings calculations
         let net_earnings = (comp_earned * props.price) + int_earned - int_paid;
 
+        // Update state with appropriate calculations
         set_comp_earned(Number(comp_earned.toFixed(2)));
         set_comp_earned_usd(Number((comp_earned * props.price).toFixed(2)));
         set_interest_earned(Number(int_earned.toFixed(2)));
@@ -92,6 +107,7 @@ export default function COMPDistributionCalculator(props) {
         set_net_apy(((net_earnings / sum_amount) * 100).toFixed(2));
     }
 
+    // React-table setup
     const columns = [
         {Header: 'Market', Accessor: 'image', Cell: row => <MarketItem {...row.original} />},
         {Header: 'Gross Supply', Accessor: 'gross_supply', Cell: row => <FormatItem {...row.original} type="supply" />},
@@ -239,6 +255,7 @@ export default function COMPDistributionCalculator(props) {
     )
 }
 
+// Market image + symbol + name cell formatting
 function MarketItem(props) {
     return(
         <>
@@ -291,6 +308,7 @@ function MarketItem(props) {
     )
 }
 
+// Borrow/Supply cells formatting
 function FormatItem(props) {
     return(
         <>
@@ -335,6 +353,7 @@ function FormatItem(props) {
     )
 }
 
+// APY cells formatting
 function FormatItemAPY(props) {
     return(
         <>
@@ -379,15 +398,21 @@ function FormatItemAPY(props) {
     )
 }
 
+// Formats numbers similar to Compound dashboard look
 function formatNum(value) {
+    // If value > a million
     if (value > 1000000) {
+        // Cleaned million formatting
         return (value / 1000000).toFixed(2) + 'M';
     } else if (value > 1000) {
+        // Else, cleaned thousands formatting
         return (value / 1000).toFixed(0) + 'K';
     }
 }
 
+// Input cell
 function CalcCell(props) {
+    // Updates array structure of parent state via updateDistribution function
     function updateNum(value) {
         props.updateDistribution(props.type === 'supply' ? 'supply' : 'borrow', props.symbol, parseFloat(value));
     }

@@ -1,22 +1,35 @@
-import axios from 'axios'
+import axios from 'axios';
+
+/*
+    /api/compound/markets
+    Returns data about compound finance pools
+    including token data for today and historic
+*/
 
 export default (req, res) => {
     return new Promise(resolve => {
+        // Get Compound Market data
         axios.get("https://api.compound.finance/api/v2/ctoken?meta=true&network=mainnet").then(ctokens => {
+            // Get historic Compound Market data (to calculate 24H change)
             axios.get(`https://api.compound.finance/api/v2/ctoken?meta=false&block_timestamp=${parseInt((new Date().getTime() / 1000) - 86400)}&network=mainnet`).then(historic => {
+                // Get CoinGecko eth price data
                 axios.get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd").then(eth => {
+                    // Get CoinGecko COMP price and volume data
                     axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=compound-governance-token").then(comp => {
-                        let tokens = ctokens.data.cToken;
-                        let historic_tokens = historic.data.cToken;
-                        let eth_price = eth.data.ethereum.usd;
-                        let data = [];
+                        let tokens = ctokens.data.cToken; // Setup current token info
+                        let historic_tokens = historic.data.cToken; // Setup historic token info
+                        let eth_price = eth.data.ethereum.usd; // Setup eth price
+                        let data = []; // Container for token data
 
+                        // General statistics to calculate:
                         let total_supply = 0;
                         let total_borrow = 0;
                         let earned_interest = 0;
                         let paid_interest = 0;
-            
+
+                        // Setup token items from Compound data:
                         tokens.forEach(token => {
+                            // Collect required stats for front-end
                             let tokenItem = {
                                 "image": `https://compound.finance/images/asset_${token.underlying_symbol === 'WBTC' ? 'BTC' : token.underlying_symbol}.svg`,
                                 "name": token.name === 'Compound USDT' ? "Tether" : token.name.slice(9),
@@ -26,9 +39,12 @@ export default (req, res) => {
                                 "gross_supply": parseFloat(token.total_supply.value) * ((parseFloat(token.exchange_rate.value) * parseFloat(token.underlying_price.value)) * eth_price),
                                 "gross_borrow": parseFloat(token.total_borrows.value) * (parseFloat(token.underlying_price.value) * eth_price)
                             };
-
+                            
+                            // Increment total supply and borrow calculations
                             total_supply += tokenItem.gross_supply;
                             total_borrow += tokenItem.gross_borrow;
+                            
+                            // Calculate earned_interest for tokens with >0APY
                             if (token.supply_rate.value > 0) {
                                 earned_interest += tokenItem.gross_supply * token.supply_rate.value;
                             }
@@ -36,6 +52,7 @@ export default (req, res) => {
                                 paid_interest += tokenItem.gross_borrow * token.borrow_rate.value;
                             }
 
+                            // Use historic compound data to calculate change in apy/supply/borrow
                             historic_tokens.forEach(historicToken => {
                                 if (token.name === historicToken.name) {
                                     tokenItem.supply_apy_change = ((parseFloat(token.supply_rate.value) * 100) - (parseFloat(historicToken.supply_rate.value) * 100));
@@ -45,11 +62,14 @@ export default (req, res) => {
                                 }
                             })
                             
+                            // Push token to data container
                             data.push(tokenItem);
                         })
                         
+                        // Sort tokens by gross market supply (largest first)
                         let sorted = data.sort(function(a, b) {return b.gross_supply - a.gross_supply});
 
+                        // Calculate yearly comp allocation per token
                         for (let i = 0; i < sorted.length; i++) {
                             let total_diff = ((sorted[i].gross_borrow / total_borrow) * 527425);
                             sorted[i].comp_allocation = total_diff;

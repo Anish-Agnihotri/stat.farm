@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 export default function Layout({ children }) {
-    const router = useRouter()
+    const router = useRouter() // Existing setup for active links (potentially for when including more than just Compound data)
 
     return(
         <main>

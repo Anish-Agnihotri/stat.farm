@@ -37,7 +37,7 @@ export default function TickerItem(props) {
             }
             .vol {
                 display: inline-block;
-                top: 17.5px;
+                top: 17px;
                 right: 15px;
                 position: absolute;
                 font-weight: 500;

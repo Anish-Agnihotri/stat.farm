@@ -1,25 +1,34 @@
-import Head from 'next/head'
-import Layout from '../components/Layout'
-import SmallCard from '../components/SmallCard'
-import WideCard from '../components/WideCard'
-import MidCard from '../components/MidCard'
-import XWideCard from '../components/XWideCard'
-import TickerItem from '../components/TickerItem'
-import AddressItem from '../components/AddressItem'
-import GovernanceItem from '../components/GovernanceItem'
-import COMPDistributionCalculator from '../components/COMPDistributionCalculator'
-import BeatLoader from "react-spinners/BeatLoader"
-import COMPChart from '../components/COMPChart'
-import useSWR from 'swr'
-import fetch from 'unfetch'
+// Setup
+import Head from 'next/head'; // Update website title to include Compound
+import Layout from '../components/Layout'; // Import website layout
 
+// Card grid imports
+import SmallCard from '../components/SmallCard'; // Small detail cards
+import WideCard from '../components/WideCard'; // 2/3 display cards
+import MidCard from '../components/MidCard'; // 1/3 display cards
+import XWideCard from '../components/XWideCard'; // 3/3 display cards
+
+// Rendered item imports
+import TickerItem from '../components/TickerItem'; // Exchange volume items
+import AddressItem from '../components/AddressItem'; // COMP holder items
+import GovernanceItem from '../components/GovernanceItem'; // COMP governance proposal items
+
+import COMPDistributionCalculator from '../components/COMPDistributionCalculator'; // Distribution calculator
+import BeatLoader from "react-spinners/BeatLoader"; // Loading animation
+import COMPChart from '../components/COMPChart'; // COMP/USD chart
+
+// Data retrieval
+import useSWR from 'swr'; // Next SWR
+import fetch from 'unfetch'; // Fetch library
+
+// Setup SWR data fetching
 const fetcher = url => fetch(url).then(r => r.json())
 
 export default function Compound() {
-  const { data: data_info } = useSWR('/api/compound/info', fetcher, { refreshInterval: 2000 });
-  const { data: data_markets } = useSWR('/api/compound/markets', fetcher, { refreshInterval: 5000 });
-  const { data: data_governance } = useSWR('/api/compound/governance', fetcher, { refreshInterval: 20000 });
-  const { data: data_candles } = useSWR("/api/compound/chart", fetcher);
+  const { data: data_info } = useSWR('/api/compound/info', fetcher, { refreshInterval: 2000 }); // General COMP info, refreshed every 2s
+  const { data: data_markets } = useSWR('/api/compound/markets', fetcher, { refreshInterval: 5000 }); // COMP markets info, refreshed every 5s
+  const { data: data_governance } = useSWR('/api/compound/governance', fetcher, { refreshInterval: 20000 }); // COMP governance info, refreshed every 20s
+  const { data: data_candles } = useSWR("/api/compound/chart", fetcher); // COMP/USD chart data, pulled on load, once.
 
   return (
     <div className="container">
@@ -87,6 +96,7 @@ export default function Compound() {
           </WideCard>
         </div>
       </Layout>
+
       <style global jsx>{`
       .centerize {
         width: 100%;
@@ -97,6 +107,7 @@ export default function Compound() {
         transform: translateY(200px);
       }
       `}</style>
+
       <style jsx>{`
       .data-retrieved {
         display: inline-block;
@@ -144,10 +155,12 @@ export default function Compound() {
         }
       }
       `}</style>
+
     </div>
   )
 }
 
+// Loading animation
 function CustomLoader() {
   return <BeatLoader
     size={10}

@@ -1,15 +1,17 @@
-import {Line} from 'react-chartjs-2'
-import moment from 'moment'
+import {Line} from 'react-chartjs-2' // Chart.js line chart
+import moment from 'moment' // Moment to convert time data to readable format
 
 export default function COMPChart(props) {
-    let labels = [];
-    let chart_data = [];
+    let labels = []; // Setup labels array
+    let chart_data = []; // Setup COMP/USD data point array
 
+    // Loop through all data
     for (let i = 0; i < props.data.length; i++) {
-        labels.push(moment.utc(props.data[i].time).format('MM/DD'));
-        chart_data.push(props.data[i].close);
+        labels.push(moment.utc(props.data[i].time).format('MM/DD')); // Push formatted date data
+        chart_data.push(props.data[i].close); // Push formatted chart data
     }
 
+    // Chart rendering setup
     const data = {
         labels: labels,
         datasets: [
