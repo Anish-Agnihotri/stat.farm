@@ -12,8 +12,8 @@ export default (req, res) => {
         axios.get("https://api.compound.finance/api/v2/governance/accounts?page_size=100&page_number=1&with_history=false&network=mainnet").then(compaddr => {
             // Pull Compound governance proposals
             axios.get("https://api.compound.finance/api/v2/governance/proposals").then(gov => {
-                // Pull ETH price
-                axios.get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd").then(eth => {
+                // Pull COMP price
+                axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=compound-governance-token").then(comp => {
                     let comp_holders = compaddr.data.accounts;
                     
                     // Fix error with user 'Can Not Lose''s profile picture
@@ -27,7 +27,7 @@ export default (req, res) => {
                     let response = {
                         "addresses": compaddr.data.accounts,
                         "proposals": gov.data.proposals,
-                        "current_price": eth.data.ethereum.usd
+                        "current_price": comp.data[0].current_price
                     }
 
                     res.send(response);
