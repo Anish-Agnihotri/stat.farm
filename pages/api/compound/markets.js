@@ -71,7 +71,7 @@ export default (req, res) => {
 
                         // Calculate yearly comp allocation per token
                         for (let i = 0; i < sorted.length; i++) {
-                            let total_diff = ((sorted[i].gross_borrow / total_borrow) * 527425);
+                            let total_diff = ((sorted[i].gross_borrow / total_borrow) * 421940);
                             sorted[i].comp_allocation = total_diff;
                         }
 
