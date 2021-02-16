@@ -89,7 +89,7 @@ export default function COMPDistributionCalculator(props) {
                     if (props.data[i].symbol === key) {
                         int_paid += parseFloat(distribution.borrow[key]) * (parseFloat(props.data[i].borrow_apy) / 100);
                         comp_earned += (parseFloat(distribution.borrow[key]) / props.data[i].gross_borrow) * props.data[i].comp_allocation;
-                        sum_amount += parseFloat(distribution.borrow[key]);
+                        sum_amount -= parseFloat(distribution.borrow[key]);
                     }
                 }
             }
